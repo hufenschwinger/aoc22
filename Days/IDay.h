@@ -6,13 +6,13 @@
 namespace aoc22 {
     class IDay {
     public:
-        [[nodiscard]] virtual uint8_t  number() const;
+        [[nodiscard]] virtual uint8_t  number() const = 0;
 
-        [[nodiscard]] virtual std::string partOne() const;
+        [[nodiscard]] virtual std::string partOne() const = 0;
 
-        [[nodiscard]] virtual std::string partTwo() const;
+        [[nodiscard]] virtual std::string partTwo() const = 0;
 
-        ~IDay();
+        virtual ~IDay() = default;
     };
 } // aoc22
 

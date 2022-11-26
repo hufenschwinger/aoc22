@@ -6,7 +6,15 @@
 namespace aoc22 {
     class DayFourtyTwo : public aoc22::IDay {
     public:
-        ~DayFourtyTwo();
+        DayFourtyTwo() = default;
+
+        [[nodiscard]] uint8_t number() const override;
+
+        [[nodiscard]] std::string partOne() const override;
+
+        [[nodiscard]] std::string partTwo() const override;
+
+        ~DayFourtyTwo() = default;
     };
 } // aoc22
 

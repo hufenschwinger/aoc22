@@ -1,21 +1,16 @@
 #include "DayFourtyTwo.h"
 #include "IDay.h"
 
+using namespace aoc22;
 
-namespace aoc22 {
-    uint8_t IDay::number() const {
-        return 42;
-    }
+uint8_t DayFourtyTwo::number() const {
+    return 42;
+}
 
-    std::string IDay::partOne() const {
-        return "Teil 1";
-    }
+std::string DayFourtyTwo::partOne() const {
+    return "Teil 1";
+}
 
-    std::string IDay::partTwo() const {
-        return "Teil 2";
-    }
-
-    IDay::~IDay() = default;
-
-    DayFourtyTwo::~DayFourtyTwo() = default;
-} // aoc22
+std::string DayFourtyTwo::partTwo() const {
+    return "Teil 2";
+}
