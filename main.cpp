@@ -13,8 +13,7 @@ void execute(const aoc22::IDay *iday) { //TODO maybe supplier as param?
 }
 
 int main() {
-    aoc22::IDay *day = new aoc22::DayFourtyTwo();
-    execute(day);
-    delete day;
+    aoc22::IDay day;
+    execute(&day);
     return 0;
 }
