@@ -11,6 +11,8 @@ namespace aoc22 {
         [[nodiscard]] virtual std::string partOne() const;
 
         [[nodiscard]] virtual std::string partTwo() const;
+
+        ~IDay();
     };
 } // aoc22
 
