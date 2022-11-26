@@ -17,9 +17,9 @@ void execute(std::unique_ptr<aoc22::IDay> iday) {
     auto endTwo = std::chrono::high_resolution_clock::now();
     auto durationTwo = std::chrono::duration_cast<std::chrono::microseconds>(endTwo - startTwo).count();
 
-    std::cout << "Day: " << static_cast<int16_t>(number) << std::endl
-              << "Part 1: " << solutionOne << " in " << durationOne << "us" << std::endl
-              << "Part 2: " << solutionTwo << " in " << durationTwo << "us" << std::endl;
+    std::cout << "Day: " << static_cast<int16_t>(number) << "\n"
+              << "Part 1: " << solutionOne << " in " << durationOne << "us" << "\n"
+              << "Part 2: " << solutionTwo << " in " << durationTwo << "us" << "\n";
 }
 
 int main() {
