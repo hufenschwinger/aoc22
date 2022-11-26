@@ -8,7 +8,7 @@ void execute(std::unique_ptr<aoc22::IDay> iday) {
     const auto& number = iday->number();
     const auto& solutionOne = iday->partOne();
     const auto& solutionTwo = iday->partTwo();
-    std::cout << "Day: " << number << std::endl
+    std::cout << "Day: " << static_cast<int16_t>(number) << std::endl
               << "Part 1: " << solutionOne << std::endl
               << "Part 2: " << solutionTwo << std::endl;
 }
