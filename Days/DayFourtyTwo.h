@@ -5,6 +5,8 @@
 
 namespace aoc22 {
     class DayFourtyTwo : public aoc22::IDay {
+    public:
+        ~DayFourtyTwo();
     };
 } // aoc22
 

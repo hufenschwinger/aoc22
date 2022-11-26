@@ -15,5 +15,5 @@ namespace aoc22 {
         return "Teil 2";
     }
 
-    IDay::~IDay() = default;
+    DayFourtyTwo::~DayFourtyTwo() = default;
 } // aoc22
