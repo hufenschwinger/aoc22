@@ -3,4 +3,4 @@ project(bastelkram)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(bastelkram main.cpp Days/DayFourtyTwo.cpp)
+add_executable(bastelkram main.cpp Days/DayFortyTwo.cpp)

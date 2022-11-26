@@ -1,12 +1,12 @@
-#ifndef BASTELKRAM_DAYFOURTYTWO_H
-#define BASTELKRAM_DAYFOURTYTWO_H
+#ifndef BASTELKRAM_DAYFORTYTWO_H
+#define BASTELKRAM_DAYFORTYTWO_H
 
 #include "IDay.h"
 
 namespace aoc22 {
-    class DayFourtyTwo : public aoc22::IDay {
+    class DayFortyTwo : public aoc22::IDay {
     public:
-        DayFourtyTwo() = default;
+        DayFortyTwo() = default;
 
         [[nodiscard]] uint8_t number() const override;
 
@@ -14,8 +14,8 @@ namespace aoc22 {
 
         [[nodiscard]] uint64_t partTwo() const override;
 
-        ~DayFourtyTwo() = default;
+        ~DayFortyTwo() = default;
     };
 } // aoc22
 
-#endif //BASTELKRAM_DAYFOURTYTWO_H
+#endif //BASTELKRAM_DAYFORTYTWO_H

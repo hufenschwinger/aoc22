@@ -2,7 +2,7 @@
 #include <memory>
 #include <chrono>
 #include "Days/IDay.h"
-#include "Days/DayFourtyTwo.h"
+#include "Days/DayFortyTwo.h"
 
 void execute(std::unique_ptr<aoc22::IDay> iday) {
     const auto& number = iday->number();
@@ -23,6 +23,6 @@ void execute(std::unique_ptr<aoc22::IDay> iday) {
 }
 
 int main() {
-    execute(std::make_unique<aoc22::DayFourtyTwo>());
+    execute(std::make_unique<aoc22::DayFortyTwo>());
     return 0;
 }
