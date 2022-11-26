@@ -8,9 +8,9 @@ namespace aoc22 {
     public:
         [[nodiscard]] virtual uint8_t number() const = 0;
 
-        [[nodiscard]] virtual std::string partOne() const = 0;
+        [[nodiscard]] virtual uint64_t partOne() const = 0;
 
-        [[nodiscard]] virtual std::string partTwo() const = 0;
+        [[nodiscard]] virtual uint64_t partTwo() const = 0;
 
         virtual ~IDay() = default;
     };

@@ -7,10 +7,10 @@ uint8_t DayFourtyTwo::number() const {
     return 42;
 }
 
-std::string DayFourtyTwo::partOne() const {
-    return "Teil 1";
+uint64_t DayFourtyTwo::partOne() const {
+    return 1;
 }
 
-std::string DayFourtyTwo::partTwo() const {
-    return "Teil 2";
+uint64_t DayFourtyTwo::partTwo() const {
+    return 2;
 }

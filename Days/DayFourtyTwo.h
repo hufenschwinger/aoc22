@@ -10,9 +10,9 @@ namespace aoc22 {
 
         [[nodiscard]] uint8_t number() const override;
 
-        [[nodiscard]] std::string partOne() const override;
+        [[nodiscard]] uint64_t partOne() const override;
 
-        [[nodiscard]] std::string partTwo() const override;
+        [[nodiscard]] uint64_t partTwo() const override;
 
         ~DayFourtyTwo() = default;
     };
