@@ -1,5 +1,4 @@
 #include "DayFortyTwo.h"
-#include "IDay.h"
 
 using namespace aoc22;
 

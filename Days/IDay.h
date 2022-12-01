@@ -2,6 +2,8 @@
 #define BASTELKRAM_IDAY_H
 
 #include <string>
+#include <vector>
+#include <fstream>
 
 namespace aoc22 {
     class IDay {
@@ -13,6 +15,17 @@ namespace aoc22 {
         [[nodiscard]] virtual uint64_t partTwo() const = 0;
 
         virtual ~IDay() = default;
+
+    protected:
+        [[nodiscard]] static std::vector<std::string> readFile(const std::string& name) {
+            std::ifstream file(name);
+            std::string str;
+            std::vector<std::string> result;
+            while (std::getline(file, str)) {
+                result.push_back(str);
+            }
+            return result;
+        }
     };
 } // aoc22
 
