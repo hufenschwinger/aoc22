@@ -14,10 +14,13 @@ uint64_t DayThree::partOne() const {
     uint64_t sumOfPrios{0L};
     std::string left, right;
     unsigned int half;
+    uint64_t leftItems;
+    uint64_t rightItems;
+    uint64_t overlap;
     for (const auto &line: lines) {
         half = line.length() / 2;
-        uint8_t leftItems[52] = {0};
-        uint8_t rightItems[52] = {0};
+        leftItems = 0L;
+        rightItems = 0L;
         for (unsigned int i = 0; i < half; i++) {
             char ch = line[i];
             int index;
@@ -26,7 +29,7 @@ uint64_t DayThree::partOne() const {
             } else {
                 index = ch + 26 - 'A';
             }
-            leftItems[index] = 1;
+            leftItems |= (1 << index);
         }
         for (unsigned int i = 0; i < half; i++) {
             char ch = line[i + half];
@@ -36,10 +39,11 @@ uint64_t DayThree::partOne() const {
             } else {
                 index = ch + 26 - 'A';
             }
-            rightItems[index] = 1;
+            rightItems |= (1 << index);
         }
+        overlap = leftItems & rightItems;
         for (uint8_t i = 0; i < 52; i++) {
-            if (leftItems[i] != 0 && rightItems[i] != 0) {
+            if (overlap & (1 << i)) {
                 sumOfPrios += 1 + i;
                 break;
             }
