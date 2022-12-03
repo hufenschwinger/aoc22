@@ -20,11 +20,11 @@ const uint8_t points1[3][3] = {
 
 uint64_t DayTwo::partOne() const {
     uint64_t sumOfPoints = 0L;
-    int left, right;
+    int opponent, me;
     for (auto line : lines) {
-        left = line[0] - 'A';
-        right = line[2] - 'X';
-        sumOfPoints += points1[left][right];
+        opponent = line[0] - 'A';
+        me = line[2] - 'X';
+        sumOfPoints += points1[opponent][me];
     }
     return sumOfPoints;
 }
@@ -37,11 +37,11 @@ const uint8_t points2[3][3] = {
 
 uint64_t DayTwo::partTwo() const {
     uint64_t sumOfPoints = 0L;
-    int left, right;
+    int opponent, me;
     for (auto line : lines) {
-        left = line[0] - 'A';
-        right = line[2] - 'X';
-        sumOfPoints += points2[left][right];
+        opponent = line[0] - 'A';
+        me = line[2] - 'X';
+        sumOfPoints += points2[opponent][me];
     }
     return sumOfPoints;
 }
