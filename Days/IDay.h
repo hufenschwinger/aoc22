@@ -8,6 +8,10 @@
 namespace aoc22 {
     class IDay {
     public:
+        explicit IDay(const std::string& fileName) {
+            lines = readFile(fileName);
+        }
+
         [[nodiscard]] virtual uint8_t number() const = 0;
 
         [[nodiscard]] virtual uint64_t partOne() const = 0;
@@ -17,6 +21,9 @@ namespace aoc22 {
         virtual ~IDay() = default;
 
     protected:
+        std::vector<std::string> lines;
+
+    private:
         [[nodiscard]] static std::vector<std::string> readFile(const std::string& name) {
             std::ifstream file(name);
             std::string str;

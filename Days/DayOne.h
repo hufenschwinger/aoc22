@@ -7,7 +7,7 @@ namespace aoc22 {
 
     class DayOne : public aoc22::IDay {
     public:
-        DayOne() = default;
+        DayOne();
 
         [[nodiscard]] uint8_t number() const override;
 
