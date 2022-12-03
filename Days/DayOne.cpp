@@ -1,45 +1,45 @@
 #include "DayOne.h"
 
-namespace aoc22 {
-    uint8_t DayOne::number() const {
-        return 1;
-    }
+using namespace aoc22;
 
-    uint64_t DayOne::partOne() const {
-        long currentCounter = 0L;
-        long max = 0L;
+DayOne::DayOne() : IDay("../Days/inputs/1.txt") {
 
-        for (const auto &line: lines) {
-            if (!line.empty()) {
-                currentCounter += std::stol(line);
-                continue;
-            }
-            if (currentCounter > max) {
-                max = currentCounter;
-            }
-            currentCounter = 0L;
+}
+
+uint8_t DayOne::number() const {
+    return 1;
+}
+
+uint64_t DayOne::partOne() const {
+    long currentCounter = 0L;
+    long max = 0L;
+
+    for (const auto &line: lines) {
+        if (!line.empty()) {
+            currentCounter += std::stol(line);
+            continue;
         }
-        return max;
-    }
-
-    uint64_t DayOne::partTwo() const {
-        long currentCounter = 0L;
-
-        std::vector<long> sums;
-
-        for (const auto &line: lines) {
-            if (!line.empty()) {
-                currentCounter += std::stol(line);
-                continue;
-            }
-            sums.push_back(currentCounter);
-            currentCounter = 0L;
+        if (currentCounter > max) {
+            max = currentCounter;
         }
-        std::sort(sums.rbegin(), sums.rend());
-        return sums.at(0) + sums.at(1) + sums.at(2);
+        currentCounter = 0L;
     }
+    return max;
+}
 
-    DayOne::DayOne() : IDay("../Days/inputs/1.txt") {
+uint64_t DayOne::partTwo() const {
+    long currentCounter = 0L;
 
+    std::vector<long> sums;
+
+    for (const auto &line: lines) {
+        if (!line.empty()) {
+            currentCounter += std::stol(line);
+            continue;
+        }
+        sums.push_back(currentCounter);
+        currentCounter = 0L;
     }
-} // aoc22
+    std::sort(sums.rbegin(), sums.rend());
+    return sums.at(0) + sums.at(1) + sums.at(2);
+}
