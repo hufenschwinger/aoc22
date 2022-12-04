@@ -11,7 +11,7 @@ uint8_t DayThree::number() const {
 }
 
 uint64_t DayThree::partOne() const {
-    uint64_t sumOfPrios = 0L;
+    uint64_t sumOfPrios{0L};
     std::string left, right;
     unsigned int half;
     for (const auto &line: lines) {

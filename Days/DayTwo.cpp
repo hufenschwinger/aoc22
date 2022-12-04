@@ -1,5 +1,3 @@
-
-
 #include "DayTwo.h"
 
 using namespace aoc22;
@@ -19,8 +17,8 @@ const uint8_t points1[3][3] = {
 };
 
 uint64_t DayTwo::partOne() const {
-    uint64_t sumOfPoints = 0L;
-    for (auto& line : lines) {
+    uint64_t sumOfPoints{0L};
+    for (const auto& line : lines) {
         sumOfPoints += points1[(line[0] - 'A')][(line[2] - 'X')];
     }
     return sumOfPoints;
@@ -33,8 +31,8 @@ const uint8_t points2[3][3] = {
 };
 
 uint64_t DayTwo::partTwo() const {
-    uint64_t sumOfPoints = 0L;
-    for (auto& line : lines) {
+    uint64_t sumOfPoints{0L};
+    for (const auto& line : lines) {
         sumOfPoints += points2[(line[0] - 'A')][(line[2] - 'X')];
     }
     return sumOfPoints;
