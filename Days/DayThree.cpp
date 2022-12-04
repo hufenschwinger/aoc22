@@ -3,7 +3,7 @@
 
 using namespace aoc22;
 
-DayThree::DayThree() : IDay("../Days/inputs/3t.txt") {
+DayThree::DayThree() : IDay("../Days/inputs/3.txt") {
 
 }
 
