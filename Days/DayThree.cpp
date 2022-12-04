@@ -1,4 +1,5 @@
 #include "DayThree.h"
+#include <bitset>
 
 using namespace aoc22;
 
@@ -14,13 +15,13 @@ uint64_t DayThree::partOne() const {
     uint64_t sumOfPrios{0L};
     std::string left, right;
     unsigned int half;
-    uint64_t leftItems;
-    uint64_t rightItems;
-    uint64_t overlap;
+    std::bitset<52> leftItems;
+    std::bitset<52> rightItems;
+    std::bitset<52> overlap;
     for (const auto &line: lines) {
         half = line.length() / 2;
-        leftItems = 0L;
-        rightItems = 0L;
+        leftItems.reset();
+        rightItems.reset();
         for (unsigned int i = 0; i < half; i++) {
             char ch = line[i];
             int index;
@@ -29,7 +30,7 @@ uint64_t DayThree::partOne() const {
             } else {
                 index = ch + 26 - 'A';
             }
-            leftItems |= (1 << index);
+            leftItems.set(index, true);
         }
         for (unsigned int i = 0; i < half; i++) {
             char ch = line[i + half];
@@ -39,11 +40,12 @@ uint64_t DayThree::partOne() const {
             } else {
                 index = ch + 26 - 'A';
             }
-            rightItems |= (1 << index);
+
+            rightItems.set(index, true);
         }
         overlap = leftItems & rightItems;
         for (uint8_t i = 0; i < 52; i++) {
-            if (overlap & (1 << i)) {
+            if (overlap[i]) {
                 sumOfPrios += 1 + i;
                 break;
             }
@@ -54,10 +56,13 @@ uint64_t DayThree::partOne() const {
 
 uint64_t DayThree::partTwo() const {
     uint64_t sumOfBadgePrios = 0L;
-    uint64_t overlap;
+    std::bitset<52> overlap;
+    std::bitset<52> sacks[3];
     unsigned int groupCount = lines.size() / 3;
     for (unsigned int groupNumber = 0; groupNumber < groupCount; groupNumber++) {
-        uint64_t sacks[3] = {0};
+        for(auto& set : sacks) {
+            set.reset();
+        }
         for (unsigned int memberNumber = 0; memberNumber < 3; memberNumber++) {
             std::string line = lines[3 * groupNumber + memberNumber];
             for (char &ch: line) {
@@ -67,12 +72,12 @@ uint64_t DayThree::partTwo() const {
                 } else {
                     index = ch + 26 - 'A';
                 }
-                sacks[memberNumber] |= 1 << index;
+                sacks[memberNumber].set(index, true);
             }
         }
         overlap = sacks[0] & sacks[1] & sacks[2];
         for (int i = 0; i < 52; i++) {
-            if (overlap & (1 << i)) {
+            if (overlap[i]) {
                 sumOfBadgePrios += 1 + i;
             }
         }
