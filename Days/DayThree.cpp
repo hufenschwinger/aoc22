@@ -3,7 +3,7 @@
 
 using namespace aoc22;
 
-DayThree::DayThree() : IDay("../Days/inputs/3.txt") {
+DayThree::DayThree() : IDay("../Days/inputs/3t.txt") {
 
 }
 
@@ -13,35 +13,21 @@ uint8_t DayThree::number() const {
 
 uint64_t DayThree::partOne() const {
     uint64_t sumOfPrios{0L};
-    std::string left, right;
     unsigned int half;
     std::bitset<52> leftItems;
     std::bitset<52> rightItems;
     std::bitset<52> overlap;
     for (const auto &line: lines) {
         half = line.length() / 2;
+        const std::string_view& leftHalf{line.begin(), line.begin() + half};
+        const std::string_view& rightHalf{line.begin() + half, line.end()};
         leftItems.reset();
         rightItems.reset();
         for (unsigned int i = 0; i < half; i++) {
-            char ch = line[i];
-            int index;
-            if (ch >= 'a') {
-                index = ch - 'a';
-            } else {
-                index = ch + 26 - 'A';
-            }
-            leftItems.set(index, true);
-        }
-        for (unsigned int i = 0; i < half; i++) {
-            char ch = line[i + half];
-            int index;
-            if (ch >= 'a') {
-                index = ch - 'a';
-            } else {
-                index = ch + 26 - 'A';
-            }
-
-            rightItems.set(index, true);
+            const char chL = leftHalf[i];
+            leftItems.set(chL >= 'a' ? chL - 'a' : chL + 26 - 'A', true);
+            const char chR = rightHalf[i];
+            rightItems.set(chR >= 'a' ? chR - 'a' : chR + 26 - 'A', true);
         }
         overlap = leftItems & rightItems;
         for (uint8_t i = 0; i < 52; i++) {
@@ -65,14 +51,8 @@ uint64_t DayThree::partTwo() const {
         }
         for (unsigned int memberNumber = 0; memberNumber < 3; memberNumber++) {
             std::string line = lines[3 * groupNumber + memberNumber];
-            for (char &ch: line) {
-                int index;
-                if (ch >= 'a') {
-                    index = ch - 'a';
-                } else {
-                    index = ch + 26 - 'A';
-                }
-                sacks[memberNumber].set(index, true);
+            for (const char &ch: line) {
+                sacks[memberNumber].set(ch >= 'a' ? ch - 'a' : ch + 26 - 'A', true);
             }
         }
         overlap = sacks[0] & sacks[1] & sacks[2];
