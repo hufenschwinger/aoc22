@@ -7,7 +7,7 @@
 
 namespace aoc22 {
 
-    template<typename T>
+    template<typename T = uint64_t>
     class IDay {
     public:
         explicit IDay(const std::string &fileName) {
