@@ -12,7 +12,7 @@ uint8_t DayFive::number() const {
     return 5;
 }
 
-uint64_t DayFive::partOne() const {
+std::string DayFive::partOne() const {
     size_t emptyLine = -1;
     for (std::vector<int>::size_type i = 0;
          i != lines.size(); i++) { //find line separating initial state from instructions
@@ -55,14 +55,14 @@ uint64_t DayFive::partOne() const {
             piles[to].push(crate);
         }
     }
+    std::string result;
+
     for (auto &pile: piles) {
-        std::cout << (!pile.empty() ? pile.top() : ' ');
+        result += (!pile.empty() ? pile.top() : ' ');
     }
-    std::cout << "\n";
-    std::cout.flush();
-    return 0;
+    return result;
 }
 
-uint64_t DayFive::partTwo() const {
-    return 0;
+std::string DayFive::partTwo() const {
+    return "zero";
 }

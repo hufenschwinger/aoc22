@@ -5,15 +5,15 @@
 
 namespace aoc22 {
 
-    class DayFive : public aoc22::IDay {
+    class DayFive : public aoc22::IDay<std::string> {
     public:
         DayFive();
 
         [[nodiscard]] uint8_t number() const override;
 
-        [[nodiscard]] uint64_t partOne() const override;
+        [[nodiscard]] std::string partOne() const override;
 
-        [[nodiscard]] uint64_t partTwo() const override;
+        [[nodiscard]] std::string partTwo() const override;
 
         ~DayFive() = default;
     };

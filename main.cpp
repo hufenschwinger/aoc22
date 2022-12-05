@@ -8,29 +8,30 @@
 #include "Days/DayFour.h"
 #include "Days/DayFive.h"
 
-void execute(std::unique_ptr<aoc22::IDay> iday) {
-    const auto& number = iday->number();
+template <typename T>
+void execute(std::unique_ptr<aoc22::IDay<T>> day) {
+    const auto& number = day->number();
 
-    auto startOne = std::chrono::high_resolution_clock::now();
-    const auto& solutionOne = iday->partOne();
-    auto endOne = std::chrono::high_resolution_clock::now();
-    auto durationOne = std::chrono::duration_cast<std::chrono::microseconds>(endOne - startOne).count();
+    const auto startOne = std::chrono::high_resolution_clock::now();
+    const T& solutionOne = day->partOne();
+    const auto endOne = std::chrono::high_resolution_clock::now();
+    const auto durationOne = std::chrono::duration_cast<std::chrono::microseconds>(endOne - startOne).count();
 
-    auto startTwo = std::chrono::high_resolution_clock::now();
-    const auto& solutionTwo = iday->partTwo();
-    auto endTwo = std::chrono::high_resolution_clock::now();
-    auto durationTwo = std::chrono::duration_cast<std::chrono::microseconds>(endTwo - startTwo).count();
+    const auto startTwo = std::chrono::high_resolution_clock::now();
+    const auto& solutionTwo = day->partTwo();
+    const auto endTwo = std::chrono::high_resolution_clock::now();
+    const auto durationTwo = std::chrono::duration_cast<std::chrono::microseconds>(endTwo - startTwo).count();
 
     std::cout << "Day: " << static_cast<int16_t>(number) << "\n"
-              << "Part 1: " << solutionOne << " in " << durationOne << "us" << "\n"
-              << "Part 2: " << solutionTwo << " in " << durationTwo << "us" << "\n";
+              << "Part 1: " << aoc22::format<T>(solutionOne) << " in " << durationOne << "us" << "\n"
+              << "Part 2: " << aoc22::format<T>(solutionTwo) << " in " << durationTwo << "us" << "\n";
 }
 
 int main() {
-    execute(std::make_unique<aoc22::DayOne>());
-    execute(std::make_unique<aoc22::DayTwo>());
-    execute(std::make_unique<aoc22::DayThree>());
-    execute(std::make_unique<aoc22::DayFour>());
-    execute(std::make_unique<aoc22::DayFive>());
+    execute<uint64_t>(std::make_unique<aoc22::DayOne>());
+    execute<uint64_t>(std::make_unique<aoc22::DayTwo>());
+    execute<uint64_t>(std::make_unique<aoc22::DayThree>());
+    execute<uint64_t>(std::make_unique<aoc22::DayFour>());
+    execute<std::string>(std::make_unique<aoc22::DayFive>());
     return 0;
 }

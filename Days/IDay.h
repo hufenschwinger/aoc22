@@ -6,17 +6,35 @@
 #include <fstream>
 
 namespace aoc22 {
+
+    template<typename T>
+    [[nodiscard]] std::string format(T result) {
+        throw "scheiße";
+    }
+
+    template<>
+    [[nodiscard]] std::string format(uint64_t result) {
+        return std::to_string(result);
+    }
+
+    template<>
+    [[nodiscard]] std::string format(std::string result) {
+        return result;
+    }
+
+    template<typename T>
     class IDay {
+
     public:
-        explicit IDay(const std::string& fileName) {
+        explicit IDay(const std::string &fileName) {
             lines = readFile(fileName);
         }
 
         [[nodiscard]] virtual uint8_t number() const = 0;
 
-        [[nodiscard]] virtual uint64_t partOne() const = 0;
+        [[nodiscard]] virtual T partOne() const = 0;
 
-        [[nodiscard]] virtual uint64_t partTwo() const = 0;
+        [[nodiscard]] virtual T partTwo() const = 0;
 
         virtual ~IDay() = default;
 
@@ -24,7 +42,7 @@ namespace aoc22 {
         std::vector<std::string> lines;
 
     private:
-        [[nodiscard]] static std::vector<std::string> readFile(const std::string& name) {
+        [[nodiscard]] static std::vector<std::string> readFile(const std::string &name) {
             std::ifstream file(name);
             std::string str;
             std::vector<std::string> result;

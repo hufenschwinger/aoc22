@@ -5,7 +5,7 @@
 
 namespace aoc22 {
 
-    class DayThree : public aoc22::IDay {
+    class DayThree : public aoc22::IDay<uint64_t> {
     public:
         DayThree();
 
