@@ -6,6 +6,7 @@
 #include "Days/DayTwo.h"
 #include "Days/DayThree.h"
 #include "Days/DayFour.h"
+#include "Days/DayFive.h"
 
 void execute(std::unique_ptr<aoc22::IDay> iday) {
     const auto& number = iday->number();
@@ -30,5 +31,6 @@ int main() {
     execute(std::make_unique<aoc22::DayTwo>());
     execute(std::make_unique<aoc22::DayThree>());
     execute(std::make_unique<aoc22::DayFour>());
+    execute(std::make_unique<aoc22::DayFive>());
     return 0;
 }
