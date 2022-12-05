@@ -8,23 +8,7 @@
 namespace aoc22 {
 
     template<typename T>
-    [[nodiscard]] std::string format(T result) {
-        throw "scheiße";
-    }
-
-    template<>
-    [[nodiscard]] std::string format(uint64_t result) {
-        return std::to_string(result);
-    }
-
-    template<>
-    [[nodiscard]] std::string format(std::string result) {
-        return result;
-    }
-
-    template<typename T>
     class IDay {
-
     public:
         explicit IDay(const std::string &fileName) {
             lines = readFile(fileName);

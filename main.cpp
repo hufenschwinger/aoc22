@@ -8,6 +8,16 @@
 #include "Days/DayFour.h"
 #include "Days/DayFive.h"
 
+template<typename T>
+[[nodiscard]] std::string format(T result) {
+    return std::to_string(result);
+}
+
+template<>
+[[maybe_unused]] [[nodiscard]] std::string format(std::string result) {
+    return result;
+}
+
 template <typename T>
 void execute(std::unique_ptr<aoc22::IDay<T>> day) {
     const auto& number = day->number();
@@ -23,8 +33,8 @@ void execute(std::unique_ptr<aoc22::IDay<T>> day) {
     const auto durationTwo = std::chrono::duration_cast<std::chrono::microseconds>(endTwo - startTwo).count();
 
     std::cout << "Day: " << static_cast<int16_t>(number) << "\n"
-              << "Part 1: " << aoc22::format<T>(solutionOne) << " in " << durationOne << "us" << "\n"
-              << "Part 2: " << aoc22::format<T>(solutionTwo) << " in " << durationTwo << "us" << "\n";
+              << "Part 1: " << format<T>(solutionOne) << " in " << durationOne << "us" << "\n"
+              << "Part 2: " << format<T>(solutionTwo) << " in " << durationTwo << "us" << "\n";
 }
 
 int main() {

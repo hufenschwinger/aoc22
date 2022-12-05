@@ -1,4 +1,5 @@
 #include <numeric>
+#include <algorithm>
 #include "DayOne.h"
 
 using namespace aoc22;
