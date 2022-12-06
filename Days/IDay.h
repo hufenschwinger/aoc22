@@ -12,6 +12,7 @@ namespace aoc22 {
     public:
         explicit IDay(const std::string &fileName) {
             lines = readFile(fileName);
+            firstLine = lines[0];
         }
 
         [[nodiscard]] virtual uint8_t number() const = 0;
@@ -24,6 +25,7 @@ namespace aoc22 {
 
     protected:
         std::vector<std::string> lines;
+        std::string firstLine;
 
     private:
         [[nodiscard]] static std::vector<std::string> readFile(const std::string &name) {

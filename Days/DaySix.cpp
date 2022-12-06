@@ -13,12 +13,11 @@ uint8_t DaySix::number() const {
 }
 
 uint64_t DaySix::partOne() const {
-    std::string line = lines[0];
     size_t counter{0};
     while (true) {
         std::bitset<26> uniques;
-        for (int i = 0; i < 4; i++) {
-            uniques.set(line[counter + i] - 'a', true);
+        for (size_t i{0}; i < 4; i++) {
+            uniques.set(firstLine[counter + i] - 'a', true);
         }
         if (uniques.count() == 4) {
             break;
@@ -29,12 +28,11 @@ uint64_t DaySix::partOne() const {
 }
 
 uint64_t DaySix::partTwo() const {
-    std::string line = lines[0];
     size_t counter{0};
     while (true) {
         std::bitset<26> uniques;
-        for (int i = 0; i < 14; i++) {
-            uniques.set(line[counter + i] - 'a', true);
+        for (size_t i{0}; i < 14; i++) {
+            uniques.set(firstLine[counter + i] - 'a', true);
         }
         if (uniques.count() == 14) {
             break;
