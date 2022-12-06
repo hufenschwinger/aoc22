@@ -15,7 +15,6 @@ uint8_t DayOne::number() const {
 uint64_t DayOne::partOne() const {
     long currentCounter{0L};
     long max{0L};
-
     for (const auto &line: lines) {
         if (!line.empty()) {
             currentCounter += std::stol(line);
@@ -32,7 +31,6 @@ uint64_t DayOne::partOne() const {
 uint64_t DayOne::partTwo() const {
     long currentCounter{0L};
     std::vector<long> sums{0L};
-
     for (const auto &line: lines) {
         if (!line.empty()) {
             currentCounter += std::stol(line);

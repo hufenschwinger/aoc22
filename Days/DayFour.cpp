@@ -13,7 +13,7 @@ uint8_t DayFour::number() const {
 uint64_t DayFour::partOne() const {
     uint64_t resultCounter = 0L;
     size_t comma, leftDash, rightDash;
-    long leftStart, leftEnd, rightStart, rightEnd;
+    uint32_t leftStart, leftEnd, rightStart, rightEnd;
     for(const auto& line : lines) {
         comma = line.find(',');
         leftDash = line.find('-');
@@ -36,7 +36,7 @@ uint64_t DayFour::partOne() const {
 uint64_t DayFour::partTwo() const {
     uint64_t resultCounter = 0L;
     size_t comma, leftDash, rightDash;
-    long leftStart, leftEnd, rightStart, rightEnd;
+    uint32_t leftStart, leftEnd, rightStart, rightEnd;
     for(const auto& line : lines) {
         comma = line.find(',');
         leftDash = line.find('-');

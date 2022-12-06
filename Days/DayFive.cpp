@@ -22,7 +22,7 @@ std::string DayFive::partOne() const {
         }
     }
     std::stack<char> piles[9];
-    for (int64_t i = emptyLine - 2; i >= 0; i--) {
+    for (int64_t i = static_cast<int64_t>(emptyLine) - 2; i >= 0; i--) {
         std::string line = lines[i];
         size_t len = line.length();
         size_t itemsInLine = (len + 1) >> 2;
@@ -73,7 +73,7 @@ std::string DayFive::partTwo() const {
         }
     }
     std::stack<char> piles[9];
-    for (int64_t i = emptyLine - 2; i >= 0; i--) {
+    for (int64_t i = static_cast<int64_t>(emptyLine) - 2; i >= 0; i--) {
         std::string line = lines[i];
         size_t len = line.length();
         size_t itemsInLine = (len + 1) >> 2;

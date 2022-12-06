@@ -33,8 +33,8 @@ void execute(std::unique_ptr<aoc22::IDay<T>> day) {
     const auto endTwo = std::chrono::high_resolution_clock::now();
     const auto durationTwo = std::chrono::duration_cast<std::chrono::microseconds>(endTwo - startTwo).count();
 
-    std::cout << "Day: " << static_cast<int16_t>(number) << "\n"
-              << "Part 1: " << format<T>(solutionOne) << " in " << durationOne << "us" << "\n"
+    std::cout << "Day " << static_cast<int16_t>(number) << ": "
+              << "Part 1: " << format<T>(solutionOne) << " in " << durationOne << "us, "
               << "Part 2: " << format<T>(solutionTwo) << " in " << durationTwo << "us" << "\n";
 }
 
