@@ -8,6 +8,7 @@
 #include "Days/DayFour.h"
 #include "Days/DayFive.h"
 #include "Days/DaySix.h"
+#include "Days/DaySeven.h"
 
 template<typename T>
 [[nodiscard]] std::string format(T result) {
@@ -45,5 +46,6 @@ int main() {
     execute<uint64_t>(std::make_unique<aoc22::DayFour>());
     execute<std::string>(std::make_unique<aoc22::DayFive>());
     execute<uint64_t>(std::make_unique<aoc22::DaySix>());
+    execute<uint64_t>(std::make_unique<aoc22::DaySeven>());
     return 0;
 }
