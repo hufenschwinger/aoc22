@@ -5,17 +5,26 @@
 
 namespace aoc22 {
 
-class DaySeven : public aoc22::IDay<> {
-public:
-    DaySeven();
+    class Directory {
+    public:
+        explicit Directory(std::shared_ptr<Directory> parent);
+        std::shared_ptr<Directory> parent;
+        std::vector<std::shared_ptr<Directory>> children{};
+        uint64_t size{0};
+        ~Directory() = default;
+    };
 
-    [[nodiscard]] uint8_t number() const override;
+    class DaySeven : public aoc22::IDay<> {
+    public:
+        DaySeven();
 
-    [[nodiscard]] uint64_t partOne() const override;
+        [[nodiscard]] uint8_t number() const override;
 
-    [[nodiscard]] uint64_t partTwo() const override;
+        [[nodiscard]] uint64_t partOne() const override;
 
-    ~DaySeven() = default;
+        [[nodiscard]] uint64_t partTwo() const override;
+
+        ~DaySeven() = default;
     };
 
 } // aoc22

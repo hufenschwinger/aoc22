@@ -3,9 +3,17 @@
 #include <list>
 #include <set>
 #include <algorithm>
+#include <memory>
+#include <utility>
 #include "DaySeven.h"
 
 using namespace aoc22;
+
+Directory::Directory(std::shared_ptr<Directory> parent) {
+    this->parent = std::move(parent);
+    children = std::vector<std::shared_ptr<Directory>>();
+    size = 0;
+}
 
 DaySeven::DaySeven() : IDay("../Days/inputs/7.txt") {
 
@@ -17,134 +25,85 @@ uint8_t DaySeven::number() const {
 
 constexpr uint32_t maxSize = 100000;
 
+static uint64_t sumOfDirsBelowLimit(const std::shared_ptr<Directory> &dir) {
+    uint64_t sumOfEligibleDirs{0};
+    for (const auto &child: dir->children) {
+        sumOfEligibleDirs += sumOfDirsBelowLimit(child);
+    }
+    if (dir->size <= maxSize) {
+        sumOfEligibleDirs += dir->size;
+    }
+    return sumOfEligibleDirs;
+}
+
 uint64_t DaySeven::partOne() const {
-    std::unordered_map<std::string, uint64_t> fileSystem; //fully-qualified filepaths w/ sizes
-    std::list<std::string> location; //track current location
-    //parse input
+    std::shared_ptr<Directory> root = std::make_shared<Directory>(nullptr);
+    std::shared_ptr<Directory> current = root;
+
     for (size_t i{1}; i < lines.size(); i++) { //skip first
         const std::string &line = lines[i];
         if (line.starts_with("$ cd ")) {
             if (line.substr(5, 2) == "..") { //updir
-                location.pop_back();
+                current = current->parent;
             } else { //indir
-                location.push_back(line.substr(5));
+                std::shared_ptr<Directory> child = std::make_shared<Directory>(current);
+                current->children.push_back(child);
+                current = child;
             }
         } else if (isdigit(line[0])) { //file
             size_t gap = line.find(' ');
             uint64_t size = std::stoull(line.substr(0, gap));
-            std::string name = line.substr(gap + 1);
-            std::string fullPath{"/"};
-            for (const auto &dir: location) { //build full path
-                fullPath += dir + "/";
-            }
-            fullPath += name;
-            fileSystem.emplace(fullPath, size);
+            std::shared_ptr<Directory> chain = current;
+            do {
+                chain->size += size;
+                chain = chain->parent;
+            } while (chain != nullptr);
         }
     }
 
-    //determine dirs
-    std::set<std::string> directories;
-    for (const auto &entry: fileSystem) {
-        std::string fullName = entry.first;
-        size_t lastSep = fullName.find_last_of('/');
-        std::string parent = entry.first.substr(0, lastSep);
-        directories.emplace(parent);
-        while (parent.find('/') != std::string::npos) {
-            lastSep = parent.find_last_of('/');
-            parent = parent.substr(0, lastSep);
-            directories.emplace(parent);
-        }
-    }
-
-    uint64_t sum{0};
-    {//measure root dir
-        uint64_t rootSum{0};
-        for (const auto &file: fileSystem) {
-            rootSum += file.second;
-        }
-        if (rootSum <= maxSize) {
-            sum += rootSum;
-        }
-    }
-
-    for (const auto &dir: directories) { //check dir sizes
-        uint64_t dirSum{0};
-        for (const auto &file: fileSystem) {
-            if (file.first.starts_with(dir)) {
-                dirSum += file.second;
-            }
-        }
-        if (dirSum <= maxSize) {
-            sum += dirSum;
-        }
-    }
-    return sum;
+    return sumOfDirsBelowLimit(root);
 }
 
 constexpr uint32_t diskSize = 70000000;
 constexpr uintptr_t updateSize = 30000000;
 
+static void appendAllSizes(const std::shared_ptr<Directory> &base, std::vector<uint64_t> &list) {
+    list.push_back(base->size);
+    for (const auto &child: base->children) {
+        appendAllSizes(child, list);
+    }
+}
+
 uint64_t DaySeven::partTwo() const {
-    std::unordered_map<std::string, uint64_t> fileSystem; //fully-qualified filepaths w/ sizes
-    std::list<std::string> location; //track current location
-    //parse input
+    std::shared_ptr<Directory> root = std::make_shared<Directory>(nullptr);
+    std::shared_ptr<Directory> current = root;
+
     for (size_t i{1}; i < lines.size(); i++) { //skip first
         const std::string &line = lines[i];
         if (line.starts_with("$ cd ")) {
             if (line.substr(5, 2) == "..") { //updir
-                location.pop_back();
+                current = current->parent;
             } else { //indir
-                location.push_back(line.substr(5));
+                std::shared_ptr<Directory> child = std::make_shared<Directory>(current);
+                current->children.push_back(child);
+                current = child;
             }
         } else if (isdigit(line[0])) { //file
             size_t gap = line.find(' ');
             uint64_t size = std::stoull(line.substr(0, gap));
-            std::string name = line.substr(gap + 1);
-            std::string fullPath{"/"};
-            for (const auto &dir: location) { //build full path
-                fullPath += dir + "/";
-            }
-            fullPath += name;
-            fileSystem.emplace(fullPath, size);
+            std::shared_ptr<Directory> chain = current;
+            do {
+                chain->size += size;
+                chain = chain->parent;
+            } while (chain != nullptr);
         }
     }
 
-    //determine dirs
-    std::set<std::string> directories;
-    for (const auto &entry: fileSystem) {
-        std::string fullName = entry.first;
-        size_t lastSep = fullName.find_last_of('/');
-        std::string parent = entry.first.substr(0, lastSep);
-        directories.emplace(parent);
-        while (parent.find('/') != std::string::npos) {
-            lastSep = parent.find_last_of('/');
-            parent = parent.substr(0, lastSep);
-            directories.emplace(parent);
-        }
-    }
+    uint64_t requiredSpace = updateSize - (diskSize - root->size);
     std::vector<uint64_t> sizes;
-
-    uint64_t sum{0};
-    uint64_t rootSum{0};
-    {//measure root dir
-        for (const auto &file: fileSystem) {
-            rootSum += file.second;
-        }
-        sizes.push_back(rootSum);
-    }
-
-    for (const auto &dir: directories) { //check dir sizes
-        uint64_t dirSum{0};
-        for (const auto &file: fileSystem) {
-            if (file.first.starts_with(dir)) {
-                dirSum += file.second;
-            }
-        }
-        sizes.push_back(dirSum);
-    }
-    uint64_t requiredSpace = updateSize - (diskSize - rootSum);
+    appendAllSizes(root, sizes);
     std::sort(sizes.begin(), sizes.end());
-    for(const auto& candidate : sizes) {
+    for (const auto &candidate: sizes) {
         if (candidate >= requiredSpace) {
             return candidate;
         }
