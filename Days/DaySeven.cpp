@@ -23,6 +23,34 @@ uint8_t DaySeven::number() const {
     return 7;
 }
 
+std::shared_ptr<Directory> DaySeven::parse() const {
+    std::shared_ptr<Directory> root = std::make_shared<Directory>(nullptr);
+    std::shared_ptr<Directory> current = root;
+
+    for (size_t i{1}; i < lines.size(); i++) { //skip first
+        const std::string &line = lines[i];
+        if (line.starts_with("$ cd ")) {
+            if (line.substr(5, 2) == "..") { //updir
+                current = current->parent;
+            } else { //indir
+                std::shared_ptr<Directory> child = std::make_shared<Directory>(current);
+                current->children.push_back(child);
+                current = child;
+            }
+        } else if (isdigit(line[0])) { //file
+            size_t gap = line.find(' ');
+            uint64_t size = std::stoull(line.substr(0, gap));
+            std::shared_ptr<Directory> chain = current;
+            do {
+                chain->size += size;
+                chain = chain->parent;
+            } while (chain != nullptr);
+        }
+    }
+
+    return root;
+}
+
 constexpr uint32_t maxSize = 100000;
 
 static uint64_t sumOfDirsBelowLimit(const std::shared_ptr<Directory> &dir) {
@@ -37,30 +65,7 @@ static uint64_t sumOfDirsBelowLimit(const std::shared_ptr<Directory> &dir) {
 }
 
 uint64_t DaySeven::partOne() const {
-    std::shared_ptr<Directory> root = std::make_shared<Directory>(nullptr);
-    std::shared_ptr<Directory> current = root;
-
-    for (size_t i{1}; i < lines.size(); i++) { //skip first
-        const std::string &line = lines[i];
-        if (line.starts_with("$ cd ")) {
-            if (line.substr(5, 2) == "..") { //updir
-                current = current->parent;
-            } else { //indir
-                std::shared_ptr<Directory> child = std::make_shared<Directory>(current);
-                current->children.push_back(child);
-                current = child;
-            }
-        } else if (isdigit(line[0])) { //file
-            size_t gap = line.find(' ');
-            uint64_t size = std::stoull(line.substr(0, gap));
-            std::shared_ptr<Directory> chain = current;
-            do {
-                chain->size += size;
-                chain = chain->parent;
-            } while (chain != nullptr);
-        }
-    }
-
+    std::shared_ptr<Directory> root = parse();
     return sumOfDirsBelowLimit(root);
 }
 
@@ -75,29 +80,7 @@ static void appendAllSizes(const std::shared_ptr<Directory> &base, std::vector<u
 }
 
 uint64_t DaySeven::partTwo() const {
-    std::shared_ptr<Directory> root = std::make_shared<Directory>(nullptr);
-    std::shared_ptr<Directory> current = root;
-
-    for (size_t i{1}; i < lines.size(); i++) { //skip first
-        const std::string &line = lines[i];
-        if (line.starts_with("$ cd ")) {
-            if (line.substr(5, 2) == "..") { //updir
-                current = current->parent;
-            } else { //indir
-                std::shared_ptr<Directory> child = std::make_shared<Directory>(current);
-                current->children.push_back(child);
-                current = child;
-            }
-        } else if (isdigit(line[0])) { //file
-            size_t gap = line.find(' ');
-            uint64_t size = std::stoull(line.substr(0, gap));
-            std::shared_ptr<Directory> chain = current;
-            do {
-                chain->size += size;
-                chain = chain->parent;
-            } while (chain != nullptr);
-        }
-    }
+    std::shared_ptr<Directory> root = parse();
 
     uint64_t requiredSpace = updateSize - (diskSize - root->size);
     std::vector<uint64_t> sizes;

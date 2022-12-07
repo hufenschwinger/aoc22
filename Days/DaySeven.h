@@ -25,6 +25,9 @@ namespace aoc22 {
         [[nodiscard]] uint64_t partTwo() const override;
 
         ~DaySeven() = default;
+
+    private:
+        [[nodiscard]] std::shared_ptr<Directory> parse() const;
     };
 
 } // aoc22
