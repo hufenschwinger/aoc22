@@ -18,7 +18,7 @@ uint8_t DaySeven::number() const {
 constexpr uint32_t maxSize = 100000;
 
 uint64_t DaySeven::partOne() const {
-    std::map<const std::string, const uint64_t> fileSystem; //fully-qualified filepaths w/ sizes
+    std::unordered_map<std::string, uint64_t> fileSystem; //fully-qualified filepaths w/ sizes
     std::list<std::string> location; //track current location
     //parse input
     for (size_t i{1}; i < lines.size(); i++) { //skip first
@@ -85,7 +85,7 @@ constexpr uint32_t diskSize = 70000000;
 constexpr uintptr_t updateSize = 30000000;
 
 uint64_t DaySeven::partTwo() const {
-    std::map<const std::string, const uint64_t> fileSystem; //fully-qualified filepaths w/ sizes
+    std::unordered_map<std::string, uint64_t> fileSystem; //fully-qualified filepaths w/ sizes
     std::list<std::string> location; //track current location
     //parse input
     for (size_t i{1}; i < lines.size(); i++) { //skip first
