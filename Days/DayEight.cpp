@@ -12,7 +12,7 @@ uint8_t DayEight::number() const {
 
 uint64_t DayEight::partOne() const {
     size_t width, height;
-    auto forest = parse(&width, &height);
+    auto forest = parse(&width, &height, true);
     Tree *current;
     uint32_t maxHeight;
 
@@ -74,13 +74,68 @@ uint64_t DayEight::partOne() const {
     }
     free(forest);
     return visibleTrees;
-} //21 for test
-
-uint64_t DayEight::partTwo() const {
-    return 0;
 }
 
-Tree *DayEight::parse(size_t *w, size_t *h) const {
+uint64_t DayEight::partTwo() const {
+    size_t width, height;
+    auto forest = parse(&width, &height, false);
+    uint32_t up, down, left, right, counter, maxScore{0};
+    Tree *current, *other;
+    for (auto currentRow{1}; currentRow < (height - 1); currentRow++) {//row 1 -> e-1
+        for (auto currentColumn{1}; currentColumn < (width - 1); currentColumn++) {
+            current = forest + (currentRow * width + currentColumn);
+            //up
+            counter = 1;
+            for (auto u = currentRow - 1; u > 0; u--) {
+                other = forest + (u * width + currentColumn);
+                if (other->z >= current->z) {
+                    break;
+                }
+                counter++;
+            }
+            up = counter;
+
+            //down
+            counter = 1;
+            for (auto d = currentRow + 1; d < (height - 1); d++) {
+                other = forest + (d * width + currentColumn);
+                if (other->z >= current->z) {
+                    break;
+                }
+                counter++;
+            }
+            down = counter;
+
+            //left
+            counter = 1;
+            for (auto l = currentColumn - 1; l > 0; l--) {
+                other = forest + (currentRow * width + l);
+                if (other->z >= current->z) {
+                    break;
+                }
+                counter++;
+            }
+            left = counter;
+
+            //right
+            counter = 1;
+            for (auto r = currentColumn + 1; r < (width - 1); r++) {
+                other = forest + (currentRow * width + r);
+                if (other->z >= current->z) {
+                    break;
+                }
+                counter++;
+            }
+            right = counter;
+
+            maxScore = std::max(maxScore, up * down * left * right);
+        }
+    }
+    free(forest);
+    return maxScore;
+}
+
+Tree *DayEight::parse(size_t *w, size_t *h, const bool includeBools) const {
     auto height = lines.size();
     auto width = lines[0].size();
     *h = height;
@@ -89,18 +144,27 @@ Tree *DayEight::parse(size_t *w, size_t *h) const {
     Tree *forest = static_cast<Tree *>(calloc(height * width, sizeof(Tree)));
     uint8_t z;
     Tree *iterator = forest;
-    for (int y = 0; y < height; y++) {
-        for (int x = 0; x < width; x++) {
-            z = lines[y][x] - 48;
-            iterator->x = x;
-            iterator->y = y;
-            iterator->z = z;
-            iterator->topVisible = true;
-            iterator->bottomVisible = true;
-            iterator->leftVisible = true;
-            iterator->rightVisible = true;
-            iterator->isEdge = x == 0 || y == 0 || x == width - 1 || y == height - 1;
-            iterator++;
+    if(includeBools) {
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                z = lines[y][x] - 48;
+                iterator->z = z;
+                iterator->topVisible = true;
+                iterator->bottomVisible = true;
+                iterator->leftVisible = true;
+                iterator->rightVisible = true;
+                iterator->isEdge = x == 0 || y == 0 || x == width - 1 || y == height - 1;
+                iterator++;
+            }
+        }
+    } else {
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                z = lines[y][x] - 48;
+                iterator->z = z;
+                iterator->isEdge = x == 0 || y == 0 || x == width - 1 || y == height - 1;
+                iterator++;
+            }
         }
     }
     return forest;

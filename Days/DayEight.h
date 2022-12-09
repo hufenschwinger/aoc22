@@ -10,7 +10,7 @@ namespace aoc22 {
     public:
         Tree() = default;
 
-        uint8_t x, y, z;
+        uint8_t z;
         bool topVisible, bottomVisible, leftVisible, rightVisible, isEdge;
 
         inline bool isVisible() const { return isEdge || topVisible || bottomVisible || leftVisible || rightVisible; }
@@ -30,7 +30,7 @@ namespace aoc22 {
         ~DayEight() = default;
 
     private:
-        Tree *parse(size_t *w, size_t *h) const;
+        Tree *parse(size_t *w, size_t *h, const bool includeBools) const;
     };
 
 } // aoc22
